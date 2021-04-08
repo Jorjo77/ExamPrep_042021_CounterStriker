@@ -36,7 +36,7 @@ namespace CounterStrike.Models.Guns
             {
                 return bulletsCount;
             }
-            private set
+            protected set
             {
                 if (value < 0)
                 {

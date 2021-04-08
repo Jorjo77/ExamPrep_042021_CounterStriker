@@ -94,7 +94,7 @@ namespace CounterStrike.Core
             var orderedPlayers = players.Models.OrderBy(p => p.GetType().Name)
                 .ThenBy(p => p.Username).ToList();
 
-            result = string.Join(", ", orderedPlayers);
+            result = string.Join(Environment.NewLine, orderedPlayers);
             return result;
         }
 

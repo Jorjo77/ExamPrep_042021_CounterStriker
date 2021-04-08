@@ -91,7 +91,7 @@ namespace CounterStrike.Models.Players.Contracts
         public void TakeDamage(int points)
         {
             int leftPoints = 0;
-            if (this.Armor - points > 0)
+            if (this.Armor - points >= 0)
             {
                 this.Armor -= points;
             }

@@ -14,15 +14,15 @@ namespace CounterStrike.Models.Maps
             IList<IPlayer> terrorists = players.Where(p => p.GetType().Name == "Terrorist").ToList();
             IList<IPlayer> counterTerrorists = players.Where(p => p.GetType().Name == "CounterTerrorist").ToList();
 
-            while (terrorists.Sum(t => t.Health) > 0 || counterTerrorists.Sum(t => t.Health) > 0)
+            while (terrorists.Sum(t => t.Health) > 0 && counterTerrorists.Sum(t => t.Health) > 0)
             {
                 foreach (var terrorist in terrorists)
                 {
                     if (terrorist.IsAlive)
                     {
-                        foreach (var CounterTerrorist in counterTerrorists)
+                        foreach (var counterTerrorist in counterTerrorists)
                         {
-                            terrorist.Gun.Fire();
+                            counterTerrorist.TakeDamage(terrorist.Gun.Fire());
                         }
                     }
                 }
@@ -30,13 +30,14 @@ namespace CounterStrike.Models.Maps
                 {
                     if (counterTerrorist.IsAlive)
                     {
-                        foreach (var CounterTerrorist in counterTerrorists)
+                        foreach (var terrorist in terrorists)
                         {
-                            counterTerrorist.Gun.Fire();
+                            terrorist.TakeDamage(counterTerrorist.Gun.Fire());
                         }
                     }
                 }
             }
+
             if (terrorists.Sum(t => t.Health) == 0)
             {
                 return message = "Counter Terrorist wins!";

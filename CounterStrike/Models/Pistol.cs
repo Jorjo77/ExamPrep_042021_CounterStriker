@@ -13,6 +13,7 @@ namespace CounterStrike.Models
         {
             if (this.BulletsCount>0)
             {
+                this.BulletsCount -= 1;
                 return 1;
             }
             else
