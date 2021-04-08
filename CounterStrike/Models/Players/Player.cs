@@ -1,6 +1,7 @@
 ﻿
 using CounterStrike.Models.Guns.Contracts;
 using System;
+using System.Text;
 
 namespace CounterStrike.Models.Players.Contracts
 {
@@ -100,6 +101,16 @@ namespace CounterStrike.Models.Players.Contracts
                 this.Armor = 0;
                 this.Health -= leftPoints;
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"{this.GetType().Name}: {this.username}");
+            sb.AppendLine($"--Health: {this.Health}");
+            sb.AppendLine($"--Armor: {this.Armor}");
+            sb.AppendLine($"--Gun: {this.Gun.Name}");
+            return sb.ToString().TrimEnd();
         }
     }
 }

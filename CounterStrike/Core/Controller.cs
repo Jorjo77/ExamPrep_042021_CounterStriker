@@ -1,4 +1,6 @@
 ﻿using CounterStrike.Core.Contracts;
+using CounterStrike.IO;
+using CounterStrike.IO.Contracts;
 using CounterStrike.Models;
 using CounterStrike.Models.Guns.Contracts;
 using CounterStrike.Models.Maps;
@@ -6,6 +8,7 @@ using CounterStrike.Models.Maps.Contracts;
 using CounterStrike.Models.Players.Contracts;
 using CounterStrike.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CounterStrike.Core
@@ -86,13 +89,22 @@ namespace CounterStrike.Core
 
         public string Report()
         {
-            throw new System.NotImplementedException();
+            string result = string.Empty;
+
+            var orderedPlayers = players.Models.OrderBy(p => p.GetType().Name)
+                .ThenBy(p => p.Username).ToList();
+
+            result = string.Join(", ", orderedPlayers);
+            return result;
         }
 
         public string StartGame()
         {
-            //Functionality 
-            //    Game starts with all players that are alive! Returns the result from the Start() method.
+            string result = string.Empty;
+
+            result = map.Start((ICollection<IPlayer>)players.Models);
+
+            return result;
         }
     }
 }
